@@ -1,0 +1,212 @@
+aid: eigenda
+name: EigenDA
+description: >-
+  EigenDA is a secure, high-throughput, decentralized data availability (DA)
+  service built on top of Ethereum using EigenLayer restaking primitives.
+  Developed by Eigen Labs and operated as the flagship product of EigenCloud,
+  EigenDA accepts blobs of rollup data from rollup sequencers, erasure-codes
+  them, distributes the chunks across a network of EigenLayer-restaked
+  operators, and produces aggregate BLS signatures that anchor data
+  availability on Ethereum L1. The service is positioned as a hyperscale DA
+  layer for rollups, advertising 1 GB/s of design throughput and is secured
+  by 4M+ ETH restaked through EigenLayer with validators that include
+  Coinbase, Google, Nethermind, and Puffer. EigenDA is consumed today by
+  rollups and chains including Celo, MegaETH, and Aevo, with integrations
+  available for Arbitrum Orbit, OP Stack, Nitro, and the Sovereign SDK. The
+  protocol exposes a gRPC API surface across a Disperser (blob ingest and
+  status), Relays (blob and chunk retrieval), Retriever (reconstructive
+  retrieval), Churner (operator registration), and Validator/Node endpoints.
+  v2 of the protocol introduces a payment vault and the GetPaymentState RPC
+  on the Disperser, replacing per-account static throughput reservations
+  with a programmatic payments surface. The reference implementation is
+  open source in Go (with a Rust client and SDKs in Rust and TypeScript),
+  licensed Apache-2.0 / MIT, and developed in the open on GitHub.
+type: Index
+position: Provider
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Blockchain
+  - Data Availability
+  - Ethereum
+  - Restaking
+  - EigenLayer
+  - Rollups
+  - Layer 2
+  - Web3
+  - gRPC
+  - Decentralized Infrastructure
+  - KZG Commitments
+  - Cryptography
+url: https://raw.githubusercontent.com/api-evangelist/eigenda/refs/heads/main/apis.yml
+created: '2026-05-24'
+modified: '2026-05-24'
+specificationVersion: '0.20'
+apis:
+  - aid: eigenda:disperser-api
+    name: EigenDA Disperser API
+    description: >-
+      gRPC API exposed by the EigenDA Disperser. Rollups submit raw blobs
+      to DisperseBlob, then poll GetBlobStatus until the blob is confirmed
+      and dispersed across the operator set. v2 adds GetBlobCommitment,
+      GetPaymentState (payment vault accounting), and
+      GetValidatorSigningRate.
+    humanURL: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/disperser
+    baseURL: https://disperser-mainnet.eigenda.xyz
+    tags:
+      - Data Availability
+      - Disperser
+      - Blobs
+      - gRPC
+    properties:
+      - type: Documentation
+        url: https://github.com/Layr-Labs/eigenda/blob/master/api/proto/disperser/disperser.proto
+      - type: Documentation
+        url: https://github.com/Layr-Labs/eigenda/blob/master/api/proto/disperser/v2/disperser_v2.proto
+      - type: Protobuf
+        url: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/disperser
+  - aid: eigenda:retriever-api
+    name: EigenDA Retriever API
+    description: >-
+      gRPC service that fans out chunk requests to EigenDA operator nodes
+      and reconstructs the original blob from the retrieved chunks via the
+      RetrieveBlob RPC.
+    humanURL: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/retriever
+    tags:
+      - Data Availability
+      - Retriever
+      - Blobs
+      - gRPC
+    properties:
+      - type: Documentation
+        url: https://github.com/Layr-Labs/eigenda/blob/master/api/proto/retriever/retriever.proto
+      - type: Protobuf
+        url: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/retriever
+  - aid: eigenda:relay-api
+    name: EigenDA Relay API
+    description: >-
+      gRPC service exposing GetBlob, GetChunks, and GetValidatorChunks
+      against blobs stored by the relay layer. Relays sit between rollups
+      and validators and front the read path for posted blobs.
+    humanURL: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/relay
+    tags:
+      - Data Availability
+      - Relay
+      - Chunks
+      - gRPC
+    properties:
+      - type: Documentation
+        url: https://github.com/Layr-Labs/eigenda/blob/master/api/proto/relay/relay.proto
+      - type: Protobuf
+        url: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/relay
+  - aid: eigenda:churner-api
+    name: EigenDA Churner API
+    description: >-
+      gRPC service that handles operator registration via the Churn RPC.
+      The Churner decides whether new operators may join the EigenDA
+      operator set and which existing operators are evicted when the
+      registered stake exceeds protocol capacity.
+    humanURL: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/churner
+    tags:
+      - Data Availability
+      - Churner
+      - Operators
+      - Registration
+      - gRPC
+    properties:
+      - type: Documentation
+        url: https://github.com/Layr-Labs/eigenda/blob/master/api/proto/churner/churner.proto
+      - type: Protobuf
+        url: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/churner
+  - aid: eigenda:validator-node-api
+    name: EigenDA Validator Node API
+    description: >-
+      gRPC API served by EigenDA operator nodes. Validators receive chunk
+      dispersals from the Disperser, sign aggregated attestations, and
+      serve chunk retrieval. v2 introduces node_v2.proto and a separate
+      signing_rate.proto for measuring per-validator availability.
+    humanURL: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/validator
+    tags:
+      - Data Availability
+      - Validator
+      - Node
+      - Operators
+      - gRPC
+    properties:
+      - type: Documentation
+        url: https://github.com/Layr-Labs/eigenda/blob/master/api/proto/validator/node_v2.proto
+      - type: Documentation
+        url: https://github.com/Layr-Labs/eigenda/blob/master/api/proto/validator/signing_rate.proto
+      - type: Protobuf
+        url: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/validator
+common:
+  - type: Website
+    url: https://www.eigenda.xyz
+  - type: Website
+    url: https://eigencloud.xyz/da
+  - type: Portal
+    url: https://docs.eigencloud.xyz/products/eigenda/overview
+  - type: Documentation
+    url: https://docs.eigencloud.xyz/products/eigenda/api/disperser-v2-API/overview
+  - type: Documentation
+    url: https://layr-labs.github.io/eigenda/
+  - type: Blog
+    url: https://www.blog.eigenlayer.xyz/intro-to-eigenda-hyperscale-data-availability-for-rollups/
+  - type: BlobExplorer
+    url: https://blobs.eigenda.xyz/
+  - type: GitHubOrganization
+    url: https://github.com/Layr-Labs
+  - type: SourceCode
+    url: https://github.com/Layr-Labs/eigenda
+  - type: SDK
+    url: https://github.com/Layr-Labs/eigenda-sdk
+    name: EigenDA TypeScript SDK (beta)
+  - type: SDK
+    url: https://github.com/Layr-Labs/eigenda-rs
+    name: EigenDA Rust Tooling
+  - type: SDK
+    url: https://github.com/Layr-Labs/eigenda-client-rs
+    name: EigenDA Rust Client
+  - type: SDK
+    url: https://github.com/Layr-Labs/eigensdk-go
+    name: EigenLayer Go SDK
+  - type: SDK
+    url: https://github.com/Layr-Labs/eigensdk-rs
+    name: EigenLayer Rust SDK
+  - type: Tool
+    url: https://github.com/Layr-Labs/eigenda-proxy
+    name: EigenDA Proxy
+  - type: Tool
+    url: https://github.com/Layr-Labs/eigenda-orbit-sdk
+    name: EigenDA Orbit SDK (Arbitrum Orbit fork)
+  - type: Tool
+    url: https://github.com/Layr-Labs/eigenda-orbit-setup-script
+    name: EigenDA Orbit Setup Script
+  - type: Tool
+    url: https://github.com/Layr-Labs/nitro
+    name: Arbitrum Nitro for EigenDA
+  - type: Tool
+    url: https://github.com/Layr-Labs/eigenda-operator-setup
+    name: EigenDA Operator Setup Guide
+  - type: Tool
+    url: https://github.com/Layr-Labs/hokulea
+    name: Hokulea (OP Stack EigenDA fault proofs)
+  - type: CodeExamples
+    url: https://github.com/Layr-Labs/eigenda-examples
+  - type: Forum
+    url: https://forum.eigenlayer.xyz/c/eigenda-research/36
+  - type: Twitter
+    url: https://x.com/eigen_da
+  - type: Twitter
+    url: https://x.com/eigenlayer
+  - type: Support
+    url: mailto:eigenda-support@eigenlabs.org
+  - type: Company
+    url: https://www.eigenlabs.org
+  - type: Whitepaper
+    url: https://github.com/Layr-Labs/whitepaper
+  - type: License
+    url: https://github.com/Layr-Labs/eigenda/blob/master/LICENSE
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
