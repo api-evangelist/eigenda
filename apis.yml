@@ -158,42 +158,42 @@ common:
     url: https://github.com/Layr-Labs
   - type: SourceCode
     url: https://github.com/Layr-Labs/eigenda
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Layr-Labs/eigenda-sdk
     name: EigenDA TypeScript SDK (beta)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Layr-Labs/eigenda-rs
     name: EigenDA Rust Tooling
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Layr-Labs/eigenda-client-rs
     name: EigenDA Rust Client
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Layr-Labs/eigensdk-go
     name: EigenLayer Go SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Layr-Labs/eigensdk-rs
     name: EigenLayer Rust SDK
-  - type: Tool
+  - type: Tools
     url: https://github.com/Layr-Labs/eigenda-proxy
     name: EigenDA Proxy
-  - type: Tool
+  - type: Tools
     url: https://github.com/Layr-Labs/eigenda-orbit-sdk
     name: EigenDA Orbit SDK (Arbitrum Orbit fork)
-  - type: Tool
+  - type: Tools
     url: https://github.com/Layr-Labs/eigenda-orbit-setup-script
     name: EigenDA Orbit Setup Script
-  - type: Tool
+  - type: Tools
     url: https://github.com/Layr-Labs/nitro
     name: Arbitrum Nitro for EigenDA
-  - type: Tool
+  - type: Tools
     url: https://github.com/Layr-Labs/eigenda-operator-setup
     name: EigenDA Operator Setup Guide
-  - type: Tool
+  - type: Tools
     url: https://github.com/Layr-Labs/hokulea
     name: Hokulea (OP Stack EigenDA fault proofs)
   - type: CodeExamples
     url: https://github.com/Layr-Labs/eigenda-examples
-  - type: Forum
+  - type: Forums
     url: https://forum.eigenlayer.xyz/c/eigenda-research/36
   - type: Twitter
     url: https://x.com/eigen_da
