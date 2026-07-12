@@ -140,6 +140,8 @@ apis:
       - type: Protobuf
         url: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/validator
 common:
+  - type: DomainSecurity
+    url: security/eigenda-domain-security.yml
   - type: Website
     url: https://www.eigenda.xyz
   - type: Website
