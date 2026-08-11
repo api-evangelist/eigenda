@@ -151,6 +151,14 @@ apis:
       - type: Protobuf
         url: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/validator
 common:
+  - type: IssueTracker
+    url: https://github.com/Layr-Labs/eigenda/issues
+  - type: Releases
+    url: https://github.com/Layr-Labs/eigenda/releases
+  - type: SecurityPolicy
+    url: https://github.com/Layr-Labs/eigenda/blob/master/SECURITY.md
+  - type: ContributionGuide
+    url: https://github.com/Layr-Labs/eigenda/blob/master/docs/contributing.md
   - type: DomainSecurity
     url: security/eigenda-domain-security.yml
   - type: Website
