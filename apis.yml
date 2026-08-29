@@ -22,6 +22,17 @@ description: >-
   open source in Go (with a Rust client and SDKs in Rust and TypeScript),
   licensed Apache-2.0 / MIT, and developed in the open on GitHub.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
