@@ -55,6 +55,19 @@ tags:
   - Ethereum
   - Restaking
   - EigenLayer
+  - Rollup
+  - Layer 2
+  - Web3
+  - gRPC
+  - Decentralized Infrastructure
+  - KZG Commitments
+  - Cryptography
+tags_raw:
+  - Blockchain
+  - Data Availability
+  - Ethereum
+  - Restaking
+  - EigenLayer
   - Rollups
   - Layer 2
   - Web3
@@ -134,6 +147,12 @@ apis:
     tags:
       - Data Availability
       - Churner
+      - Operator
+      - Registration
+      - gRPC
+    tags_raw:
+      - Data Availability
+      - Churner
       - Operators
       - Registration
       - gRPC
@@ -151,6 +170,12 @@ apis:
       signing_rate.proto for measuring per-validator availability.
     humanURL: https://github.com/Layr-Labs/eigenda/tree/master/api/proto/validator
     tags:
+      - Data Availability
+      - Validator
+      - Node
+      - Operator
+      - gRPC
+    tags_raw:
       - Data Availability
       - Validator
       - Node
