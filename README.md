@@ -1,4 +1,4 @@
-# EigenDA (eigenda)
+# EigenDA
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,97 +64,90 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-EigenDA is a secure, high-throughput, decentralized data availability (DA) service built on Ethereum via EigenLayer restaking primitives. Developed by Eigen Labs and operated as the flagship product of the EigenCloud suite, EigenDA accepts rollup data blobs, erasure-codes them across a restaked operator network, and anchors aggregated BLS attestations to Ethereum L1. Designed for hyperscale rollup DA, EigenDA advertises 1 GB/s of throughput, is secured by 4M+ ETH of restaked stake, and is integrated by rollups including Celo, MegaETH, and Aevo.
+EigenDA is a secure, high-throughput, decentralized data availability (DA) service built on top of Ethereum using EigenLayer restaking primitives. Developed by Eigen Labs and operated as the flagship product of EigenCloud, EigenDA accepts blobs of rollup data from rollup sequencers, erasure-codes them, distributes the chunks across a network of EigenLayer-restaked operators, and produces aggregate BLS signatures that anchor data availability on Ethereum L1. The service is positioned as a hyperscale DA layer for rollups, advertising 1 GB/s of design throughput and is secured by 4M+ ETH restaked through EigenLayer with validators that include Coinbase, Google, Nethermind, and Puffer. EigenDA is consumed today by rollups and chains including Celo, MegaETH, and Aevo, with integrations available for Arbitrum Orbit, OP Stack, Nitro, and the Sovereign SDK. The protocol exposes a gRPC API surface across a Disperser (blob ingest and status), Relays (blob and chunk retrieval), Retriever (reconstructive retrieval), Churner (operator registration), and Validator/Node endpoints. v2 of the protocol introduces a payment vault and the GetPaymentState RPC on the Disperser, replacing per-account static throughput reservations with a programmatic payments surface. The reference implementation is open source in Go (with a Rust client and SDKs in Rust and TypeScript), licensed Apache-2.0 / MIT, and developed in the open on GitHub.
 
-**URL:** [Visit APIs.json](https://raw.githubusercontent.com/api-evangelist/eigenda/refs/heads/main/apis.yml)
+**Areas:** Blockchain · Data Availability · Ethereum · Restaking · EigenLayer · Rollup · Layer 2 · Web3 · gRPC · Decentralized Infrastructure · KZG Commitments · Cryptography
 
-## Tags
+## EigenDA on APIs.io
 
- - Blockchain, Data Availability, Ethereum, Restaking, EigenLayer, Rollups, Layer 2, Web3, gRPC, Decentralized Infrastructure, KZG Commitments, Cryptography
+Everything profiled for EigenDA is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/eigenda/](https://apis.io/providers/eigenda/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-05-24
-- **Modified:** 2026-05-24
+- [EigenDA Disperser API](https://apis.io/apis/eigenda/disperser-api/) — gRPC API exposed by the EigenDA Disperser. Rollups submit raw blobs to DisperseBlob, then poll GetBlobStatus until the blob is confirmed and dispersed…
+- [EigenDA Retriever API](https://apis.io/apis/eigenda/retriever-api/) — gRPC service that fans out chunk requests to EigenDA operator nodes and reconstructs the original blob from the retrieved chunks via the RetrieveBlob RPC.
+- [EigenDA Relay API](https://apis.io/apis/eigenda/relay-api/) — gRPC service exposing GetBlob, GetChunks, and GetValidatorChunks against blobs stored by the relay layer. Relays sit between rollups and validators and…
+- [EigenDA Churner API](https://apis.io/apis/eigenda/churner-api/) — gRPC service that handles operator registration via the Churn RPC. The Churner decides whether new operators may join the EigenDA operator set and which…
+- [EigenDA Validator Node API](https://apis.io/apis/eigenda/validator-node-api/) — gRPC API served by EigenDA operator nodes. Validators receive chunk dispersals from the Disperser, sign aggregated attestations, and serve chunk retrieval.…
 
-## APIs
+### Published properties
 
-The canonical EigenDA API surface is a set of gRPC services defined in protobuf under [`Layr-Labs/eigenda/api/proto/`](https://github.com/Layr-Labs/eigenda/tree/master/api/proto). v1 services remain in place while v2 (under `disperser/v2`, `retriever/v2`, `validator/`) ships as a fundamental redesign of the protocol — adding a payment vault, validator signing-rate telemetry, and a path toward permissionless dispersers and data availability sampling.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### EigenDA Disperser API
-The on-ramp for rollups. `DisperseBlob` accepts a raw blob; `GetBlobStatus` returns the dispersal lifecycle (queued, encoded, dispersing, confirmed, finalized). v2 adds `GetBlobCommitment`, `GetPaymentState` (payment vault accounting), and `GetValidatorSigningRate`.
+#### Security (1)
 
-- [Protobuf — v1](https://github.com/Layr-Labs/eigenda/blob/master/api/proto/disperser/disperser.proto)
-- [Protobuf — v2](https://github.com/Layr-Labs/eigenda/blob/master/api/proto/disperser/v2/disperser_v2.proto)
-- [Docs — Disperser v2 API overview](https://docs.eigencloud.xyz/products/eigenda/api/disperser-v2-API/overview)
+Authentication, trust centre, and vulnerability disclosure.
 
-### EigenDA Retriever API
-`RetrieveBlob` fans chunk-retrieval requests out to EigenDA operator nodes and reconstructs the original blob from the returned chunks.
+- [Eigenda Domain Security](https://apis.io/security/eigenda/eigenda-domain-security/)
 
-- [Protobuf](https://github.com/Layr-Labs/eigenda/blob/master/api/proto/retriever/retriever.proto)
+## Where to find this API
 
-### EigenDA Relay API
-Read path for blobs and chunks: `GetBlob`, `GetChunks`, and `GetValidatorChunks` against the relay layer that sits between rollups and validators.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- [Protobuf](https://github.com/Layr-Labs/eigenda/blob/master/api/proto/relay/relay.proto)
+- [Website](https://www.eigenda.xyz)
+- [Documentation](https://docs.eigencloud.xyz/products/eigenda/api/disperser-v2-API/overview)
+- [Blog](https://www.blog.eigenlayer.xyz/intro-to-eigenda-hyperscale-data-availability-for-rollups/)
+- [GitHub](https://github.com/Layr-Labs)
 
-### EigenDA Churner API
-Operator registration and eviction. `Churn` decides which operators may join the EigenDA quorum and which existing operators are evicted when registered stake exceeds protocol capacity.
+## API Evangelist rating
 
-- [Protobuf](https://github.com/Layr-Labs/eigenda/blob/master/api/proto/churner/churner.proto)
+**Kin Score 18.6** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-### EigenDA Validator Node API
-gRPC API served by EigenDA operator nodes — chunk receipt, attestation signing, and chunk retrieval. v2 introduces `node_v2.proto` and a separate `signing_rate.proto` for measuring per-validator availability.
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 6.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 41.7 |
+| Access clarity | 0.0 |
 
-- [Protobuf — Node v2](https://github.com/Layr-Labs/eigenda/blob/master/api/proto/validator/node_v2.proto)
-- [Protobuf — Signing Rate](https://github.com/Layr-Labs/eigenda/blob/master/api/proto/validator/signing_rate.proto)
+**Agent readiness 1.3** — human-only
 
-## Common Properties
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-- [Website — eigenda.xyz](https://www.eigenda.xyz)
-- [Website — EigenCloud DA](https://eigencloud.xyz/da)
-- [Portal — EigenDA docs](https://docs.eigencloud.xyz/products/eigenda/overview)
-- [Documentation — Protocol Spec (mdBook)](https://layr-labs.github.io/eigenda/)
-- [Blog — Intro to EigenDA](https://www.blog.eigenlayer.xyz/intro-to-eigenda-hyperscale-data-availability-for-rollups/)
-- [BlobExplorer](https://blobs.eigenda.xyz/)
-- [GitHubOrganization — Layr-Labs](https://github.com/Layr-Labs)
-- [SourceCode — eigenda](https://github.com/Layr-Labs/eigenda)
-- [SDK — EigenDA TypeScript SDK (beta)](https://github.com/Layr-Labs/eigenda-sdk)
-- [SDK — EigenDA Rust Tooling](https://github.com/Layr-Labs/eigenda-rs)
-- [SDK — EigenDA Rust Client](https://github.com/Layr-Labs/eigenda-client-rs)
-- [SDK — EigenLayer Go SDK](https://github.com/Layr-Labs/eigensdk-go)
-- [SDK — EigenLayer Rust SDK](https://github.com/Layr-Labs/eigensdk-rs)
-- [Tool — EigenDA Proxy](https://github.com/Layr-Labs/eigenda-proxy)
-- [Tool — EigenDA Orbit SDK](https://github.com/Layr-Labs/eigenda-orbit-sdk)
-- [Tool — EigenDA Orbit Setup Script](https://github.com/Layr-Labs/eigenda-orbit-setup-script)
-- [Tool — Arbitrum Nitro for EigenDA](https://github.com/Layr-Labs/nitro)
-- [Tool — Operator Setup Guide](https://github.com/Layr-Labs/eigenda-operator-setup)
-- [Tool — Hokulea (OP Stack fault proofs)](https://github.com/Layr-Labs/hokulea)
-- [CodeExamples — eigenda-examples](https://github.com/Layr-Labs/eigenda-examples)
-- [Forum — EigenLayer forum (EigenDA Research)](https://forum.eigenlayer.xyz/c/eigenda-research/36)
-- [Twitter — @eigen_da](https://x.com/eigen_da)
-- [Twitter — @eigenlayer](https://x.com/eigenlayer)
-- [Support — eigenda-support@eigenlabs.org](mailto:eigenda-support@eigenlabs.org)
-- [Whitepaper](https://github.com/Layr-Labs/whitepaper)
+**Regulatory alignment 5.9** — Horizontal (data, software, accessibility, platform)
 
-## Integrations
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/eigenda/](https://apis.io/providers/eigenda/).
 
-- **Celo** — L2 using EigenDA for data availability
-- **MegaETH** — real-time Ethereum L2 built on EigenDA
-- **Aevo** — derivatives L2 using EigenDA
-- **Arbitrum Orbit** — via [`eigenda-orbit-sdk`](https://github.com/Layr-Labs/eigenda-orbit-sdk) and forked [`nitro`](https://github.com/Layr-Labs/nitro) / [`nitro-contracts`](https://github.com/Layr-Labs/nitro-contracts)
-- **OP Stack** — via [Hokulea](https://github.com/Layr-Labs/hokulea) fault-proof integration
-- **Sovereign SDK** — first-party DA adapter in the EigenDA `rust/` tree
-- **zkSync** — proof-of-concept integration in [`zksync-eigenda-m1`](https://github.com/Layr-Labs/zksync-eigenda-m1)
+## How this profile is made
 
-## Notes
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-- The canonical API contract is the protobuf schema in [`Layr-Labs/eigenda/api/proto/`](https://github.com/Layr-Labs/eigenda/tree/master/api/proto). EigenDA does not publish an OpenAPI/REST surface — clients integrate over gRPC using the language SDKs above or via the [`eigenda-proxy`](https://github.com/Layr-Labs/eigenda-proxy) which adapts EigenDA to standard rollup DA-server interfaces.
-- v2 is currently marked experimental in the protocol README and represents the forward path for the protocol (payment vault, permissionless dispersers, DAS).
-- The reference implementation is open source; node operators self-host using the [`eigenda-operator-setup`](https://github.com/Layr-Labs/eigenda-operator-setup) guide.
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for EigenDA: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-## Maintainers
+## Open an issue
 
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/eigenda/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
